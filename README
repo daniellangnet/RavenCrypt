@@ -1,0 +1,4 @@
+A very basic example of how to encrypt documents in RavenDB.
+
+IMPORTANT:
+You need NuGet 1.6 (or higher), so that you can use the package restore feature!
