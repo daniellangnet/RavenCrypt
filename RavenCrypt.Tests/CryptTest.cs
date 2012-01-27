@@ -1,50 +1,22 @@
-﻿using System;
-using System.ComponentModel.Composition.Hosting;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using Raven.Client.Document;
+﻿using System.ComponentModel.Composition.Hosting;
 using Raven.Client.Embedded;
-using Raven.Database.Config;
-using Raven.Database.Extensions;
-using Raven.Database.Server;
-using Raven.Json.Linq;
-using Raven.Server;
 using Xunit;
 
 namespace RavenCrypt.Tests
 {
     public class CryptTest
     {
-        private readonly DocumentStore documentStore;
-        private readonly RavenDbServer ravenDbServer;
+        private readonly EmbeddableDocumentStore documentStore;
 
         public CryptTest()
         {
-            string path = Path.GetDirectoryName(Assembly.GetAssembly(typeof (CryptTest)).CodeBase);
-            path = Path.Combine(path, "TestDb").Substring(6);
-            
-            IOExtensions.DeleteDirectory(path);
-
-            ravenDbServer = new RavenDbServer(
-                new RavenConfiguration
-                {
-                    Port = 8079,
-                    DataDirectory = path,
-                    Catalog =
-                        {
-                            Catalogs =
-                                {
-                                    new AssemblyCatalog(typeof (DocumentCodec).Assembly)
-                                }
-                        },
-                    AnonymousUserAccessMode = AnonymousUserAccessMode.All
-                });
-
-            documentStore = new DocumentStore
+            documentStore = new EmbeddableDocumentStore { RunInMemory = true };
+            documentStore.Configuration.Catalog = new AggregateCatalog
             {
-                Url = "http://localhost:8079"
+                Catalogs =
+                    {
+                        new AssemblyCatalog(typeof (DocumentCodec).Assembly)
+                    }
             };
             documentStore.Initialize();
         }

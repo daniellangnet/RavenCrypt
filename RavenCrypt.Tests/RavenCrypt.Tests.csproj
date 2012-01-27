@@ -81,9 +81,6 @@
     <Reference Include="Raven.Munin">
       <HintPath>..\packages\RavenDB-Embedded.1.0.608-Unstable\lib\net40\Raven.Munin.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Server">
-      <HintPath>..\packages\RavenDB.1.0.608-Unstable\server\Raven.Server.exe</HintPath>
-    </Reference>
     <Reference Include="Raven.Storage.Esent">
       <HintPath>..\packages\RavenDB-Embedded.1.0.608-Unstable\lib\net40\Raven.Storage.Esent.dll</HintPath>
     </Reference>
