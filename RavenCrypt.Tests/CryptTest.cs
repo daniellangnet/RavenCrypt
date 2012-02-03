@@ -11,13 +11,8 @@ namespace RavenCrypt.Tests
         public CryptTest()
         {
             documentStore = new EmbeddableDocumentStore { RunInMemory = true };
-            documentStore.Configuration.Catalog = new AggregateCatalog
-            {
-                Catalogs =
-                    {
-                        new AssemblyCatalog(typeof (DocumentCodec).Assembly)
-                    }
-            };
+            documentStore.Configuration.Catalog.Catalogs.Add(new AssemblyCatalog(typeof (DocumentCodec).Assembly));
+
             documentStore.Initialize();
         }
 
